@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="EMLstudio:war">
+    <output-path>E:/workspace/code/target</output-path>
+    <root id="archive" name="EMLstudio-0.1.war">
+      <element id="artifact" artifact-name="EMLstudio:war exploded" />
+    </root>
+  </artifact>
+</component>

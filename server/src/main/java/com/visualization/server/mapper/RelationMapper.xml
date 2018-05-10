@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.visualization.server.mapper.RelationMapper">
+  <resultMap id="BaseResultMap" type="com.visualization.server.pojo.RelationEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="out_point" jdbcType="VARCHAR" property="outPoint" />
+    <result column="out_point_type" jdbcType="VARCHAR" property="outPointType" />
+    <result column="out_customer_name" jdbcType="VARCHAR" property="outCustomerName" />
+    <result column="out_birth" jdbcType="VARCHAR" property="outBirth" />
+    <result column="out_carrier_name" jdbcType="VARCHAR" property="outCarrierName" />
+    <result column="out_area" jdbcType="VARCHAR" property="outArea" />
+    <result column="out_city" jdbcType="VARCHAR" property="outCity" />
+    <result column="out_degree" jdbcType="INTEGER" property="outDegree" />
+    <result column="in_point" jdbcType="VARCHAR" property="inPoint" />
+    <result column="in_point_type" jdbcType="VARCHAR" property="inPointType" />
+    <result column="in_customer_name" jdbcType="VARCHAR" property="inCustomerName" />
+    <result column="in_birth" jdbcType="VARCHAR" property="inBirth" />
+    <result column="in_carrier_name" jdbcType="VARCHAR" property="inCarrierName" />
+    <result column="in_area" jdbcType="VARCHAR" property="inArea" />
+    <result column="in_city" jdbcType="VARCHAR" property="inCity" />
+    <result column="in_degree" jdbcType="INTEGER" property="inDegree" />
+    <result column="busi_type" jdbcType="VARCHAR" property="busiType" />
+    <result column="length_importance" jdbcType="INTEGER" property="lengthImportance" />
+    <result column="width_importance" jdbcType="INTEGER" property="widthImportance" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, out_point, out_point_type, out_customer_name, out_birth, out_carrier_name, out_area, 
+    out_city, out_degree, in_point, in_point_type, in_customer_name, in_birth, in_carrier_name, 
+    in_area, in_city, in_degree, busi_type, length_importance, width_importance
+  </sql>
+  <select id="selectByExample" parameterType="com.visualization.server.pojo.RelationEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tu_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tu_relation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tu_relation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.visualization.server.pojo.RelationEntityExample">
+    delete from tu_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.visualization.server.pojo.RelationEntity">
+    insert into tu_relation (id, out_point, out_point_type, 
+      out_customer_name, out_birth, out_carrier_name, 
+      out_area, out_city, out_degree, 
+      in_point, in_point_type, in_customer_name, 
+      in_birth, in_carrier_name, in_area, 
+      in_city, in_degree, busi_type, 
+      length_importance, width_importance)
+    values (#{id,jdbcType=INTEGER}, #{outPoint,jdbcType=VARCHAR}, #{outPointType,jdbcType=VARCHAR}, 
+      #{outCustomerName,jdbcType=VARCHAR}, #{outBirth,jdbcType=VARCHAR}, #{outCarrierName,jdbcType=VARCHAR}, 
+      #{outArea,jdbcType=VARCHAR}, #{outCity,jdbcType=VARCHAR}, #{outDegree,jdbcType=INTEGER}, 
+      #{inPoint,jdbcType=VARCHAR}, #{inPointType,jdbcType=VARCHAR}, #{inCustomerName,jdbcType=VARCHAR}, 
+      #{inBirth,jdbcType=VARCHAR}, #{inCarrierName,jdbcType=VARCHAR}, #{inArea,jdbcType=VARCHAR}, 
+      #{inCity,jdbcType=VARCHAR}, #{inDegree,jdbcType=INTEGER}, #{busiType,jdbcType=VARCHAR}, 
+      #{lengthImportance,jdbcType=INTEGER}, #{widthImportance,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.visualization.server.pojo.RelationEntity">
+    insert into tu_relation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="outPoint != null">
+        out_point,
+      </if>
+      <if test="outPointType != null">
+        out_point_type,
+      </if>
+      <if test="outCustomerName != null">
+        out_customer_name,
+      </if>
+      <if test="outBirth != null">
+        out_birth,
+      </if>
+      <if test="outCarrierName != null">
+        out_carrier_name,
+      </if>
+      <if test="outArea != null">
+        out_area,
+      </if>
+      <if test="outCity != null">
+        out_city,
+      </if>
+      <if test="outDegree != null">
+        out_degree,
+      </if>
+      <if test="inPoint != null">
+        in_point,
+      </if>
+      <if test="inPointType != null">
+        in_point_type,
+      </if>
+      <if test="inCustomerName != null">
+        in_customer_name,
+      </if>
+      <if test="inBirth != null">
+        in_birth,
+      </if>
+      <if test="inCarrierName != null">
+        in_carrier_name,
+      </if>
+      <if test="inArea != null">
+        in_area,
+      </if>
+      <if test="inCity != null">
+        in_city,
+      </if>
+      <if test="inDegree != null">
+        in_degree,
+      </if>
+      <if test="busiType != null">
+        busi_type,
+      </if>
+      <if test="lengthImportance != null">
+        length_importance,
+      </if>
+      <if test="widthImportance != null">
+        width_importance,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="outPoint != null">
+        #{outPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="outPointType != null">
+        #{outPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="outCustomerName != null">
+        #{outCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="outBirth != null">
+        #{outBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="outCarrierName != null">
+        #{outCarrierName,jdbcType=VARCHAR},
+      </if>
+      <if test="outArea != null">
+        #{outArea,jdbcType=VARCHAR},
+      </if>
+      <if test="outCity != null">
+        #{outCity,jdbcType=VARCHAR},
+      </if>
+      <if test="outDegree != null">
+        #{outDegree,jdbcType=INTEGER},
+      </if>
+      <if test="inPoint != null">
+        #{inPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="inPointType != null">
+        #{inPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="inCustomerName != null">
+        #{inCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="inBirth != null">
+        #{inBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="inCarrierName != null">
+        #{inCarrierName,jdbcType=VARCHAR},
+      </if>
+      <if test="inArea != null">
+        #{inArea,jdbcType=VARCHAR},
+      </if>
+      <if test="inCity != null">
+        #{inCity,jdbcType=VARCHAR},
+      </if>
+      <if test="inDegree != null">
+        #{inDegree,jdbcType=INTEGER},
+      </if>
+      <if test="busiType != null">
+        #{busiType,jdbcType=VARCHAR},
+      </if>
+      <if test="lengthImportance != null">
+        #{lengthImportance,jdbcType=INTEGER},
+      </if>
+      <if test="widthImportance != null">
+        #{widthImportance,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.visualization.server.pojo.RelationEntityExample" resultType="java.lang.Long">
+    select count(*) from tu_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tu_relation
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.outPoint != null">
+        out_point = #{record.outPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outPointType != null">
+        out_point_type = #{record.outPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outCustomerName != null">
+        out_customer_name = #{record.outCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outBirth != null">
+        out_birth = #{record.outBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outCarrierName != null">
+        out_carrier_name = #{record.outCarrierName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outArea != null">
+        out_area = #{record.outArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outCity != null">
+        out_city = #{record.outCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outDegree != null">
+        out_degree = #{record.outDegree,jdbcType=INTEGER},
+      </if>
+      <if test="record.inPoint != null">
+        in_point = #{record.inPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inPointType != null">
+        in_point_type = #{record.inPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inCustomerName != null">
+        in_customer_name = #{record.inCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inBirth != null">
+        in_birth = #{record.inBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inCarrierName != null">
+        in_carrier_name = #{record.inCarrierName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inArea != null">
+        in_area = #{record.inArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inCity != null">
+        in_city = #{record.inCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inDegree != null">
+        in_degree = #{record.inDegree,jdbcType=INTEGER},
+      </if>
+      <if test="record.busiType != null">
+        busi_type = #{record.busiType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lengthImportance != null">
+        length_importance = #{record.lengthImportance,jdbcType=INTEGER},
+      </if>
+      <if test="record.widthImportance != null">
+        width_importance = #{record.widthImportance,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tu_relation
+    set id = #{record.id,jdbcType=INTEGER},
+      out_point = #{record.outPoint,jdbcType=VARCHAR},
+      out_point_type = #{record.outPointType,jdbcType=VARCHAR},
+      out_customer_name = #{record.outCustomerName,jdbcType=VARCHAR},
+      out_birth = #{record.outBirth,jdbcType=VARCHAR},
+      out_carrier_name = #{record.outCarrierName,jdbcType=VARCHAR},
+      out_area = #{record.outArea,jdbcType=VARCHAR},
+      out_city = #{record.outCity,jdbcType=VARCHAR},
+      out_degree = #{record.outDegree,jdbcType=INTEGER},
+      in_point = #{record.inPoint,jdbcType=VARCHAR},
+      in_point_type = #{record.inPointType,jdbcType=VARCHAR},
+      in_customer_name = #{record.inCustomerName,jdbcType=VARCHAR},
+      in_birth = #{record.inBirth,jdbcType=VARCHAR},
+      in_carrier_name = #{record.inCarrierName,jdbcType=VARCHAR},
+      in_area = #{record.inArea,jdbcType=VARCHAR},
+      in_city = #{record.inCity,jdbcType=VARCHAR},
+      in_degree = #{record.inDegree,jdbcType=INTEGER},
+      busi_type = #{record.busiType,jdbcType=VARCHAR},
+      length_importance = #{record.lengthImportance,jdbcType=INTEGER},
+      width_importance = #{record.widthImportance,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.visualization.server.pojo.RelationEntity">
+    update tu_relation
+    <set>
+      <if test="outPoint != null">
+        out_point = #{outPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="outPointType != null">
+        out_point_type = #{outPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="outCustomerName != null">
+        out_customer_name = #{outCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="outBirth != null">
+        out_birth = #{outBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="outCarrierName != null">
+        out_carrier_name = #{outCarrierName,jdbcType=VARCHAR},
+      </if>
+      <if test="outArea != null">
+        out_area = #{outArea,jdbcType=VARCHAR},
+      </if>
+      <if test="outCity != null">
+        out_city = #{outCity,jdbcType=VARCHAR},
+      </if>
+      <if test="outDegree != null">
+        out_degree = #{outDegree,jdbcType=INTEGER},
+      </if>
+      <if test="inPoint != null">
+        in_point = #{inPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="inPointType != null">
+        in_point_type = #{inPointType,jdbcType=VARCHAR},
+      </if>
+      <if test="inCustomerName != null">
+        in_customer_name = #{inCustomerName,jdbcType=VARCHAR},
+      </if>
+      <if test="inBirth != null">
+        in_birth = #{inBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="inCarrierName != null">
+        in_carrier_name = #{inCarrierName,jdbcType=VARCHAR},
+      </if>
+      <if test="inArea != null">
+        in_area = #{inArea,jdbcType=VARCHAR},
+      </if>
+      <if test="inCity != null">
+        in_city = #{inCity,jdbcType=VARCHAR},
+      </if>
+      <if test="inDegree != null">
+        in_degree = #{inDegree,jdbcType=INTEGER},
+      </if>
+      <if test="busiType != null">
+        busi_type = #{busiType,jdbcType=VARCHAR},
+      </if>
+      <if test="lengthImportance != null">
+        length_importance = #{lengthImportance,jdbcType=INTEGER},
+      </if>
+      <if test="widthImportance != null">
+        width_importance = #{widthImportance,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.visualization.server.pojo.RelationEntity">
+    update tu_relation
+    set out_point = #{outPoint,jdbcType=VARCHAR},
+      out_point_type = #{outPointType,jdbcType=VARCHAR},
+      out_customer_name = #{outCustomerName,jdbcType=VARCHAR},
+      out_birth = #{outBirth,jdbcType=VARCHAR},
+      out_carrier_name = #{outCarrierName,jdbcType=VARCHAR},
+      out_area = #{outArea,jdbcType=VARCHAR},
+      out_city = #{outCity,jdbcType=VARCHAR},
+      out_degree = #{outDegree,jdbcType=INTEGER},
+      in_point = #{inPoint,jdbcType=VARCHAR},
+      in_point_type = #{inPointType,jdbcType=VARCHAR},
+      in_customer_name = #{inCustomerName,jdbcType=VARCHAR},
+      in_birth = #{inBirth,jdbcType=VARCHAR},
+      in_carrier_name = #{inCarrierName,jdbcType=VARCHAR},
+      in_area = #{inArea,jdbcType=VARCHAR},
+      in_city = #{inCity,jdbcType=VARCHAR},
+      in_degree = #{inDegree,jdbcType=INTEGER},
+      busi_type = #{busiType,jdbcType=VARCHAR},
+      length_importance = #{lengthImportance,jdbcType=INTEGER},
+      width_importance = #{widthImportance,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.visualization.server.pojo.RelationEntityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tu_relation
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>
